@@ -46,7 +46,7 @@ export class MasonryGridComponent implements OnInit {
       this.scrolledBottom = 0;
     } else if (!this.loading && scrollTop + windowHeight >= documentHeight - 100) {
       this.scrolledBottom++;
-      if (this.scrolledTop >= 2) {
+      if (this.scrolledTop >= 2 || this.scrolledBottom === this.scrolledTop) {
         this.currentPage = this.currentPage + 2;
         this.loadImages(this.currentPage, 'bottom');
       } else if (this.scrolledTop < 2) {

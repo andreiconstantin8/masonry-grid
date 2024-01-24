@@ -11,7 +11,7 @@ export class UnsplashService {
   constructor(private http: HttpClient) {
   }
 
-  public getImages(page: number) {
+  public getImagesByPageNumber(page: number) {
     return this.http.get<Array<Photo>>(API_URL + `?page=${page}`);
   }
 

@@ -57,9 +57,9 @@ export class MasonryGridComponent implements OnInit {
     }
   }
 
-  private loadImages(page: number, mode: 'top' | 'bottom'): void {
+  private loadImages(pageNumber: number, mode: 'top' | 'bottom'): void {
     this.isLoading = true;
-    this.unsplashService.getImages(page).subscribe(
+    this.unsplashService.getImagesByPageNumber(pageNumber).subscribe(
       (newImages) => {
         if (mode === 'top') {
           this.images = [...newImages, ...this.images.slice(0, this.maxImagesInMemory - newImages.length)];

@@ -17,12 +17,12 @@ export class MasonryGridComponent implements OnInit {
   protected images: Photo[] = [];
   protected currentPage: number = 1;
   private maxImagesInMemory: number = 60;
-  protected loading: boolean = false;
+  protected isLoading: boolean = false;
   protected readonly Number = Number;
-  protected scrolledBottom: number = 1;
-  protected scrolledTop: number = 0;
+  protected scrolledBottomCounter: number = 1;
+  protected scrolledTopCounter: number = 0;
 
-  constructor(private unsplashService: UnsplashService) {
+  constructor(private readonly unsplashService: UnsplashService) {
   }
 
   ngOnInit() {
@@ -30,35 +30,35 @@ export class MasonryGridComponent implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event): void {
+  onScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const documentHeight = document.documentElement.scrollHeight;
-    if (!this.loading && scrollTop === 0) {
-      this.scrolledTop++;
-      if (this.scrolledBottom >= 2 && this.currentPage > 2) {
+    if (!this.isLoading && scrollTop === 0) {
+      this.scrolledTopCounter++;
+      if (this.scrolledBottomCounter >= 2 && this.currentPage > 2) {
         this.currentPage = this.currentPage - 2;
         this.loadImages(this.currentPage, 'top');
-      } else if (this.scrolledBottom < 2 && this.currentPage > 1) {
+      } else if (this.scrolledBottomCounter < 2 && this.currentPage > 1) {
         this.currentPage--;
         this.loadImages(this.currentPage, 'top');
       }
-      this.scrolledBottom = 0;
-    } else if (!this.loading && scrollTop + windowHeight >= documentHeight - 100) {
-      this.scrolledBottom++;
-      if (this.scrolledTop >= 2 || this.scrolledBottom === this.scrolledTop) {
+      this.scrolledBottomCounter = 0;
+    } else if (!this.isLoading && scrollTop + windowHeight >= documentHeight - 100) {
+      this.scrolledBottomCounter++;
+      if (this.scrolledTopCounter >= 2 || this.scrolledBottomCounter === this.scrolledTopCounter) {
         this.currentPage = this.currentPage + 2;
         this.loadImages(this.currentPage, 'bottom');
-      } else if (this.scrolledTop < 2) {
+      } else if (this.scrolledTopCounter < 2) {
         this.currentPage++;
         this.loadImages(this.currentPage, 'bottom');
       }
-      this.scrolledTop = 0;
+      this.scrolledTopCounter = 0;
     }
   }
 
   private loadImages(page: number, mode: 'top' | 'bottom'): void {
-    this.loading = true;
+    this.isLoading = true;
     this.unsplashService.getImages(page).subscribe(
       (newImages) => {
         if (mode === 'top') {
@@ -66,7 +66,7 @@ export class MasonryGridComponent implements OnInit {
         } else if (mode === 'bottom') {
           this.images = [...this.images.slice(-this.maxImagesInMemory + newImages.length), ...newImages];
         }
-        this.loading = false;
+        this.isLoading = false;
       }
     );
   }

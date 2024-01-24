@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: purple;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px); /* Adjust the amount of translation as needed */
+  }
+}

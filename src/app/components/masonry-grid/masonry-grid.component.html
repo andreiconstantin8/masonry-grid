@@ -1,0 +1,11 @@
+<div *ngIf="images && images.length > 0" class="photo-grid">
+  <div *ngFor="let image of images; let i=index" class="photo">
+    <div class="image-container">
+      <img [src]="image.download_url" [alt]="image.author"/>
+      <div class="image-title custom-title">
+        <span class="author">{{ image.author }}</span>
+        <span class="image-id">{{ Number(image.id) + 1}}</span>
+      </div>
+    </div>
+  </div>
+</div>

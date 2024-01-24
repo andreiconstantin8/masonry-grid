@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MASONRY_ROUTE} from "../global-constants";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'masonry-grid';
+  constructor() {
+  }
+
+  protected readonly MASONRY_ROUTE = MASONRY_ROUTE;
 }

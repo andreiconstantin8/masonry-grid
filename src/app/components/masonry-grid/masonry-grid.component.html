@@ -1,3 +1,7 @@
+<div *ngIf="scrollMode === 'top' && isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+</div>
+
 <div *ngIf="images && images.length > 0" class="photo-grid">
   <div *ngFor="let image of images; let i=index" class="photo">
     <div class="image-container">
@@ -8,4 +12,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="scrollMode === 'bottom' && isLoading" class="loading-spinner">
+  <div class="spinner"></div>
 </div>

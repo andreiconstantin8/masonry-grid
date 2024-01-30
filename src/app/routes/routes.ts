@@ -7,4 +7,8 @@ export const masonryRoute: Routes = [
     title: 'Masonry grid',
     loadComponent: () => import('../components/masonry-grid/masonry-grid.component').then(module => module.MasonryGridComponent)
   },
+  { path: '',
+    redirectTo: MASONRY_ROUTE,
+    pathMatch: 'full'
+  },
 ]

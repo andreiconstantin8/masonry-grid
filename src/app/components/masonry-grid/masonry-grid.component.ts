@@ -21,6 +21,7 @@ export class MasonryGridComponent implements OnInit {
   protected readonly Number = Number;
   protected scrolledBottomCounter: number = 1;
   protected scrolledTopCounter: number = 0;
+  protected scrollMode : 'top' | 'bottom' = 'bottom';
 
   constructor(private readonly unsplashService: UnsplashService) {
   }
@@ -35,7 +36,8 @@ export class MasonryGridComponent implements OnInit {
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const documentHeight = document.documentElement.scrollHeight;
     if (!this.isLoading && scrollTop === 0) {
-      this.scrolledTopCounter++;
+      this.scrollMode = 'top';
+      this.currentPage > 1 && this.scrolledTopCounter++;
       if (this.scrolledBottomCounter >= 2 && this.currentPage > 2) {
         this.currentPage = this.currentPage - 2;
         this.loadImages(this.currentPage, 'top');
@@ -46,6 +48,7 @@ export class MasonryGridComponent implements OnInit {
       this.scrolledBottomCounter = 0;
     } else if (!this.isLoading && scrollTop + windowHeight >= documentHeight - 100) {
       this.scrolledBottomCounter++;
+      this.scrollMode = 'bottom';
       if (this.scrolledTopCounter >= 2 || this.scrolledBottomCounter === this.scrolledTopCounter) {
         this.currentPage = this.currentPage + 2;
         this.loadImages(this.currentPage, 'bottom');
